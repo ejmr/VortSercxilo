@@ -2,9 +2,11 @@
 
 import argparse
 import os.path
+import re
+import sys
 import urllib.request
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 
 # These two global variables provide the URI to the 'ESPDIC.txt' file,
 # i.e. the Esperanto-English dictionary, and the filename we want to
@@ -20,6 +22,7 @@ def download_dictionary():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+    parser.add_argument("word", help="Esperanto word to search for in the dictionary")
     parser.add_argument("--download-dictionary", help="download the latest dictionary", action="store_true")
     parser.add_argument("--version", action="version", version="%(prog)s {0}".format(__version__))
     arguments = parser.parse_args()
@@ -29,3 +32,9 @@ if __name__ == '__main__':
 
     if os.path.exists(DICTIONARY_FILENAME) is False:
         download_dictionary()
+
+    with open(DICTIONARY_FILENAME, mode="r", encoding="utf-8") as espdic:
+        word = re.compile(arguments.word, re.IGNORECASE)
+        for entry in espdic.readlines():
+            match = re.match(word, entry)
+            if match: print(match.string)
