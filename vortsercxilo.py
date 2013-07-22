@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
 import argparse
+import os.path
 import urllib.request
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 # These two global variables provide the URI to the 'ESPDIC.txt' file,
 # i.e. the Esperanto-English dictionary, and the filename we want to
@@ -24,4 +25,7 @@ if __name__ == '__main__':
     arguments = parser.parse_args()
 
     if arguments.download_dictionary is True:
+        download_dictionary()
+
+    if os.path.exists(DICTIONARY_FILENAME) is False:
         download_dictionary()
