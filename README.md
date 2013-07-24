@@ -24,6 +24,9 @@ dorminklina : drowsy, sleepy
 dormiranto : sleep-walker
 ```
 
+Version 2.0.0 will have a graphical user interface for users who do
+not want to use the command-line.
+
 
 Requirements
 ------------
