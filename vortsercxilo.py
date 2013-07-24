@@ -3,10 +3,9 @@
 import argparse
 import os.path
 import re
-import sys
 import urllib.request
 
-__version__ = "0.4.0"
+__version__ = "0.5.0"
 
 # These two global variables provide the URI to the 'ESPDIC.txt' file,
 # i.e. the Esperanto-English dictionary, and the filename we want to
@@ -23,6 +22,9 @@ def download_dictionary():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("word", help="Esperanto word to search for in the dictionary")
+    parser.add_argument("--match", default="start",
+                        choices=["start", "end", "anywhere"],
+                        help="searchs for the word at the beginning, end, or anywhere in words")
     parser.add_argument("--download-dictionary", help="download the latest dictionary", action="store_true")
     parser.add_argument("--version", action="version", version="%(prog)s {0}".format(__version__))
     arguments = parser.parse_args()
@@ -34,7 +36,17 @@ if __name__ == '__main__':
         download_dictionary()
 
     with open(DICTIONARY_FILENAME, mode="r", encoding="utf-8") as espdic:
-        word = re.compile(arguments.word, re.IGNORECASE)
+
+        if arguments.match == "start":
+            word = re.compile(arguments.word + r"\s+:", re.IGNORECASE)
+            search_function = re.match
+        elif arguments.match == "end":
+            word = re.compile(arguments.word + r"$\s+:", re.IGNORECASE)
+            search_function = re.search
+        elif arguments.match == "anywhere":
+            word = re.compile(arguments.word + r"\s+:", re.IGNORECASE)
+            search_function = re.search
+        
         for entry in espdic.readlines():
-            match = re.match(word, entry)
+            match = search_function(word, entry)
             if match: print(match.string, end="")
