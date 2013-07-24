@@ -44,6 +44,16 @@ time you run the program it will download the Esperanto-English
 dictionary in the same directory as the program.
 
 
+Esperanto Resources
+-------------------
+
+* [Universala Esperanto-Asocio](http://www.uea.org/ "The UAE")
+* [Lernu](http://en.lernu.net/ "Learn Esperanto")
+* [Esperanto.net](http://esperanto.net/ "Esperanto.net")
+* [Esperanto Chat](http://babilejo.org/ "Chat in Esperanto")
+* [Books at Project Gutenberg](http://www.gutenberg.org/wiki/Esperanto_%28Bookshelf%29 "Esperanto Bookshelf") 
+
+
 Licenses
 --------
 
