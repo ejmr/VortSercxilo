@@ -60,9 +60,16 @@ Copyright Paul Denisowski
 Copyright 2013 Eric James Michael Ritz
 
 
+Miscellaneous
+-------------
+
+VortSerĉilo follows [Semantic Versioning 2.0.0][semver].
+
+
 
 [gpl]: http://www.gnu.org/copyleft/gpl.html
 [Python 3]: http://python.org/
 [Esperanto]: http://www.uea.org/
 [ESPDIC]: http://www.denisowski.org/Esperanto/ESPDIC/espdic_readme.htm
 [cc]: http://creativecommons.org/licenses/by/3.0/
+[semver]: http://semver.org/spec/v2.0.0.html
