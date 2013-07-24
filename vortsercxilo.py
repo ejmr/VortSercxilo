@@ -6,7 +6,7 @@ import re
 import sys
 import urllib.request
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 
 # These two global variables provide the URI to the 'ESPDIC.txt' file,
 # i.e. the Esperanto-English dictionary, and the filename we want to
@@ -37,4 +37,4 @@ if __name__ == '__main__':
         word = re.compile(arguments.word, re.IGNORECASE)
         for entry in espdic.readlines():
             match = re.match(word, entry)
-            if match: print(match.string)
+            if match: print(match.string, end="")
