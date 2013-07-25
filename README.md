@@ -31,7 +31,7 @@ not want to use the command-line.
 Requirements
 ------------
 
-* [Python 3.3.1][] or later.
+* [Python 3.3.1][Python] or later.
 
 This is the version of Python used to develop the program.  It may
 function with older versions.  However, VortSerĉilo does not support
@@ -81,7 +81,7 @@ VortSerĉilo follows [Semantic Versioning 2.0.0][semver].
 
 
 [gpl]: http://www.gnu.org/copyleft/gpl.html
-[Python 3]: http://python.org/
+[Python]: http://python.org/
 [Esperanto]: http://www.uea.org/
 [ESPDIC]: http://www.denisowski.org/Esperanto/ESPDIC/espdic_readme.htm
 [cc]: http://creativecommons.org/licenses/by/3.0/
