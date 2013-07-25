@@ -54,7 +54,7 @@ if __name__ == '__main__':
         # write a similar but redundant if-elif block when reading
         # from ESPDIC.
         if arguments.match == "start":
-            word = re.compile(arguments.word + r"\B.+\s+:", re.IGNORECASE)
+            word = re.compile(arguments.word + r"(?:\B.+)?\s+:", re.IGNORECASE)
             search_function = re.match
         elif arguments.match == "end":
             word = re.compile(".+" + arguments.word + r"\b\s+:", re.IGNORECASE)
