@@ -41,8 +41,8 @@ Python 2 at all.
 Installation
 ------------
 
-To install VortSerĉilo you can either clone [the repository][./] or
-simply download the [Python script][./vortsercxilo.py].  The first
+To install VortSerĉilo you can either clone [the repository](./) or
+simply download the [Python script](./vortsercxilo.py).  The first
 time you run the program it will download the Esperanto-English
 dictionary in the same directory as the program.
 
