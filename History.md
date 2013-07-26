@@ -38,3 +38,5 @@ Eric James Michael Ritz (4):
     start’
     
 4. README:  Document the ‘--match’ option
+
+5. Add history file to the project
