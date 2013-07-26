@@ -24,6 +24,19 @@ dorminklina : drowsy, sleepy
 dormiranto : sleep-walker
 ```
 
+Using the `--help` option will show the available command-line
+options.  The useful one is `--match`, which accepts one of three
+values:
+
+1. `start`: Search for the given input only at the start of words and
+   phrases.  *This is the default behavior.*
+
+2. `end`: Search for the given input only at the end of words and
+   phrases.
+
+3. `anywhere`: Search for the given input anywhere it appears in words
+   and phrases.
+
 Version 2.0.0 will have a graphical user interface for users who do
 not want to use the command-line.
 
