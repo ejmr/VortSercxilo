@@ -10,6 +10,7 @@ due to uncaught exceptions.
 import argparse
 import os.path
 import re
+import sys
 import urllib.request
 
 __version__ = "1.0.1"
@@ -18,7 +19,7 @@ __version__ = "1.0.1"
 # i.e. the Esperanto-English dictionary, and the filename we want to
 # use for our local copy of the dictionary.
 DICTIONARY_URI = "http://www.denisowski.org/Esperanto/ESPDIC/espdic.txt"
-DICTIONARY_FILENAME = "ESPDIC.txt"
+DICTIONARY_FILENAME = os.path.dirname(os.path.realpath(sys.argv[0])) + "/ESPDIC.txt"
 
 
 
