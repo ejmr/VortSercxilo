@@ -29,6 +29,44 @@ def download_dictionary():
         with open(DICTIONARY_FILENAME, mode="w", encoding="utf-8") as local:
             local.write(remote.read().decode("utf-8"))
 
+def collect_matches(word, match):
+    """Accepts a word and a match type, both as strings, and returns a
+    list of all entries which match that word.  The value of the match
+    parameter must be a string that is an acceptable value to
+    '--match' command-line argument.
+
+    The return value will either be a list of strings, or an empty
+    list if the function finds no matching dictionary entries.
+
+    """
+    results = []
+    
+    with open(DICTIONARY_FILENAME, mode="r", encoding="utf-8") as espdic:
+        # ESPDIC uses the format
+        #
+        #     Esperanto : English, English, English...
+        #
+        # for all entries.  We add a test for that colon to all
+        # regular expressions so that they only match the Esperanto.
+        # We also assign a search function so that we do not have to
+        # write a similar but redundant if-elif block when reading
+        # from ESPDIC.
+        if match == "start":
+            word_regex = re.compile(word + r"(?:\B.+)?\s+:", re.IGNORECASE)
+            search_function = re.match
+        elif match == "end":
+            word_regex = re.compile(".+" + word + r"\b\s+:", re.IGNORECASE)
+            search_function = re.search
+        elif match == "anywhere":
+            word_regex = re.compile(word + r"\s+:", re.IGNORECASE)
+            search_function = re.search
+
+        for entry in espdic.readlines():
+            match = search_function(word_regex, entry)
+            if match: results.append(match.string)
+
+        return results
+
 
 
 if __name__ == '__main__':
@@ -43,27 +81,5 @@ if __name__ == '__main__':
     if os.path.exists(DICTIONARY_FILENAME) is False:
         download_dictionary()
 
-    with open(DICTIONARY_FILENAME, mode="r", encoding="utf-8") as espdic:
-
-        # ESPDIC uses the format
-        #
-        #     Esperanto : English, English, English...
-        #
-        # for all entries.  We add a test for that colon to all
-        # regular expressions so that they only match the Esperanto.
-        # We also assign a search function so that we do not have to
-        # write a similar but redundant if-elif block when reading
-        # from ESPDIC.
-        if arguments.match == "start":
-            word = re.compile(arguments.word + r"(?:\B.+)?\s+:", re.IGNORECASE)
-            search_function = re.match
-        elif arguments.match == "end":
-            word = re.compile(".+" + arguments.word + r"\b\s+:", re.IGNORECASE)
-            search_function = re.search
-        elif arguments.match == "anywhere":
-            word = re.compile(arguments.word + r"\s+:", re.IGNORECASE)
-            search_function = re.search
-
-        for entry in espdic.readlines():
-            match = search_function(word, entry)
-            if match: print(match.string, end="")
+    for match in collect_matches(arguments.word, arguments.match):
+        print(match, end="")
