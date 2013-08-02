@@ -13,7 +13,7 @@ import re
 import sys
 import urllib.request
 
-__version__ = "1.0.1"
+__version__ = "1.1.0"
 
 # These two global variables provide the URI to the 'ESPDIC.txt' file,
 # i.e. the Esperanto-English dictionary, and the filename we want to
