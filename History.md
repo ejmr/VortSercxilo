@@ -1,42 +1,35 @@
-v1.0.0 24 July 2013
-===================
+1.1.0 / 2013-08-02 
+==================
 
-Eric James Michael Ritz (11):
+  * Reformat the history file and list the v1.1.0 changes
+  * Update the version number to 1.1.0
+  * Refactor and separate the logic for finding dictionary entries
+  * Do not download the dictionary when using a symlink for the
+    program
 
-1. Initial commit
+1.0.1 / 2013-07-25
+==================
 
-2. Download the dictionary file
-
-3. Automatically download the dictionary file if it does not exist
-
-4. Implement basic support for searching for Esperanto words
-
-5. README: Add an example of usage and how to install the program
-
-6. README: Document the use of Semantic Versioning
-
-7. README: Add a list of Esperanto study resources
-
-8. Remove extra newlines to improve readability
-
-9. Add the --match argument to control where the program tries
-   matching
-   
-10. README: Mention the plan to create a GUI
-
-11. Prepare version 1.0.0 by fixing word matching
-
-### v1.0.1 25 July 2003 ###
-
-Eric James Michael Ritz (4):
-
-1. README: Fix the link to http://python.org/
-
-2. README: Fix the links relative to GitHub
-
-3. Show output for exact matches when using the default ‘--match
+  * Bump the program to version v1.0.1
+  * Add history file to the project
+  * README:  Document the ‘--match’ option
+  * Show output for exact matches when using the default ‘--match
     start’
-    
-4. README:  Document the ‘--match’ option
+  * README: Fix the links relative to GitHub
+  * README: Fix the link to http://python.org/
 
-5. Add history file to the project
+1.0.0 / 2013-07-24
+==================
+
+  * Prepare version 1.0.0 by fixing word matching
+  * README: Mention the plan to create a GUI
+  * Add the --match argument to control where the program tries
+    matching
+  * Remove extra newlines to improve readability
+  * README: Add a list of Esperanto study resources
+  * README: Document the use of Semantic Versioning
+  * README: Add an example of usage and how to install the program
+  * Implement basic support for searching for Esperanto words
+  * Automatically download the dictionary file if it does not exist
+  * Download the dictionary file
+  * Initial commit
