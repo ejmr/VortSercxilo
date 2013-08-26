@@ -21,6 +21,12 @@ __version__ = "1.2.0-dev"
 DICTIONARY_URI = "http://www.denisowski.org/Esperanto/ESPDIC/espdic.txt"
 DICTIONARY_FILENAME = os.path.dirname(os.path.realpath(sys.argv[0])) + "/ESPDIC.txt"
 
+# This global tuple contains all of the 'match types' which the
+# program recognizes.  These are the only acceptable values to the
+# 'match' parameter of collect_matches() and to the '--match'
+# command-line argument.
+VALID_MATCH_TYPES = ("start", "end", "anywhere", "exact")
+
 
 
 def download_dictionary():
@@ -32,8 +38,7 @@ def download_dictionary():
 def collect_matches(word, match):
     """Accepts a word and a match type, both as strings, and returns a
     list of all entries which match that word.  The value of the match
-    parameter must be a string that is an acceptable value to
-    '--match' command-line argument.
+    parameter must be a string that is in VALID_MATCH_TYPES.
 
     The return value will either be a list of strings, or an empty
     list if the function finds no matching dictionary entries.
@@ -75,8 +80,7 @@ def collect_matches(word, match):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("word", nargs="+", help="Esperanto word(s) to search for in the dictionary")
-    parser.add_argument("--match", default="start",
-                        choices=["start", "end", "anywhere", "exact"],
+    parser.add_argument("--match", default="start", choices=VALID_MATCH_TYPES,
                         help="searchs for the word at the beginning, end, or anywhere in words")
     parser.add_argument("--version", action="version", version="%(prog)s {0}".format(__version__))
     arguments = parser.parse_args()
