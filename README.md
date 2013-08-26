@@ -94,7 +94,7 @@ Licenses
 
 Copyright Paul Denisowski
 
-### Code ###
+### VortSerĉilo ###
 
 [GNU General Public License][gpl]
 
