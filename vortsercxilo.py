@@ -92,7 +92,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("word", nargs="+", help="Esperanto word(s) to search for in the dictionary")
     parser.add_argument("--match", default="start", choices=VALID_MATCH_TYPES,
-                        help="searchs for the word at the beginning, end, or anywhere in words")
+                        help="search for matches at the beginning, end, or anywhere in words")
     parser.add_argument("--version", action="version", version="%(prog)s {0}".format(__version__))
     arguments = parser.parse_args()
 
