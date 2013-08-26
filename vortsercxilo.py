@@ -29,6 +29,13 @@ VALID_MATCH_TYPES = ("start", "end", "anywhere", "exact")
 
 
 
+class InvalidMatchType(Exception):
+    """Exception raised whenever we expect a 'match type' and receive
+    something that is not in VALID_MATCH_TYPES.
+
+    """
+    pass
+
 def download_dictionary():
     """Download a local copy of the Esperanto-English dictionary."""
     with urllib.request.urlopen(DICTIONARY_URI) as remote:
@@ -38,12 +45,16 @@ def download_dictionary():
 def collect_matches(word, match):
     """Accepts a word and a match type, both as strings, and returns a
     list of all entries which match that word.  The value of the match
-    parameter must be a string that is in VALID_MATCH_TYPES.
+    parameter must be a string that is in VALID_MATCH_TYPES or else
+    the function will raise an InvalidMatchType exception.
 
     The return value will either be a list of strings, or an empty
     list if the function finds no matching dictionary entries.
 
     """
+    if match not in VALID_MATCH_TYPES:
+        raise InvalidMatchType(match)
+
     results = []
     
     with open(DICTIONARY_FILENAME, mode="r", encoding="utf-8") as espdic:
