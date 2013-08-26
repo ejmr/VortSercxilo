@@ -12,6 +12,10 @@ so it was vital to me that VortSerĉilo worked without one.  The
 program only needs to connect to the Internet the first time it runs
 so that it may grab a copy of the dictionary to use in the future.
 
+A side-effect of this design is that you can force VortSerĉilo to
+fetch the latest copy of the ESPDIC by simply deleting the
+`ESPDIC.txt` file from the program’s directory.
+
 
 Usage
 -----
