@@ -4,7 +4,13 @@ VortSerĉilo
 VortSerĉilo is an [Esperanto][]-to-English dictionary program.  Its
 name literally means ‘word-searching tool’.  The program uses Paul
 Denisowski’s [ESPDIC][] as its dictionary file.  VortSerĉilo will
-automatically download this dictionary for you.
+automatically download this dictionary for you, which is the program’s
+most useful property: you can use it without an Internet connection.
+There are online Esperanto-English dictionary sites that are better
+than VortSerĉilo; but I do not always have an Internet connection and
+so it was vital to me that VortSerĉilo worked without one.  The
+program only needs to connect to the Internet the first time it runs
+so that it may grab a copy of the dictionary to use in the future.
 
 
 Usage
