@@ -60,6 +60,9 @@ def collect_matches(word, match):
         elif match == "anywhere":
             word_regex = re.compile(word + r"\s+:", re.IGNORECASE)
             search_function = re.search
+        elif match == "exact":
+            word_regex = re.compile("^" + word + "\s+:", re.IGNORECASE)
+            search_function = re.search
 
         for entry in espdic.readlines():
             match = search_function(word_regex, entry)
@@ -73,7 +76,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("word", nargs="+", help="Esperanto word(s) to search for in the dictionary")
     parser.add_argument("--match", default="start",
-                        choices=["start", "end", "anywhere"],
+                        choices=["start", "end", "anywhere", "exact"],
                         help="searchs for the word at the beginning, end, or anywhere in words")
     parser.add_argument("--version", action="version", version="%(prog)s {0}".format(__version__))
     arguments = parser.parse_args()

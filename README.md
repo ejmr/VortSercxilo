@@ -37,6 +37,9 @@ is `--match`, which accepts one of three values:
 3. `anywhere`: Search for the given input anywhere it appears in words
    and phrases.
 
+4. `exact`: Search for the given input exactly as provided.  This is
+   the strictest form of searching.
+
 Version 2.0.0 will have a graphical user interface for users who do
 not want to use the command-line.
 
