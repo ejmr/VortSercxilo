@@ -13,7 +13,7 @@ import re
 import sys
 import urllib.request
 
-__version__ = "1.1.0"
+__version__ = "1.2.0-dev"
 
 # These two global variables provide the URI to the 'ESPDIC.txt' file,
 # i.e. the Esperanto-English dictionary, and the filename we want to
@@ -71,7 +71,7 @@ def collect_matches(word, match):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("word", help="Esperanto word to search for in the dictionary")
+    parser.add_argument("word", nargs="+", help="Esperanto word(s) to search for in the dictionary")
     parser.add_argument("--match", default="start",
                         choices=["start", "end", "anywhere"],
                         help="searchs for the word at the beginning, end, or anywhere in words")
@@ -81,5 +81,6 @@ if __name__ == '__main__':
     if os.path.exists(DICTIONARY_FILENAME) is False:
         download_dictionary()
 
-    for match in collect_matches(arguments.word, arguments.match):
-        print(match, end="")
+    for word in arguments.word:
+        for match in collect_matches(word, arguments.match):
+            print(match, end="")
