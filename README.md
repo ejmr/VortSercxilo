@@ -21,17 +21,19 @@ Usage
 -----
 
 ```sh
-$ ./vortsercxilo.py dormi
-dormi : to be asleep, sleep
-dormi la tutan nokton : to sleep all night long
-dormi sur : to sleep on
-dormi surkrure : to sleep standing up
-dormiga : soporific, sleep-inducing
-dormigi : to put to sleep
-dormigilo : soporific
-dormilo : sleeping device
-dorminklina : drowsy, sleepy
-dormiranto : sleep-walker
+$ ./vortsercxilo.py fakto
+fakto : fact
+faktoreca : factorial
+faktorgrupo : factor group, quotient group
+faktorialo : factorial
+faktorio : (trading) agency
+faktoro : agent, factor, steward
+faktoro de eventualo : contingency factor
+
+$ ./vortsercxilo.py --match=exact kriegi fajfi kanti
+kriegi : to bawl, roar, scream, shout, shriek, yell
+fajfi : to whistle
+kanti : to sing
 ```
 
 You may provide multiple words to search for.  Using the `--help`
