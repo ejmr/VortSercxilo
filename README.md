@@ -52,6 +52,10 @@ is `--match`, which accepts one of three values:
 4. `exact`: Search for the given input exactly as provided.  This is
    the strictest form of searching.
 
+
+Graphical User Interface
+------------------------
+
 Version 2.0.0 will have a graphical user interface for users who do
 not want to use the command-line.
 
