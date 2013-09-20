@@ -74,11 +74,24 @@ SUFFIXES = [
     "ĉj",  # Friendly, personal male name
 ]
 
+# This list contains all of the prefixes that we consider 'official'
+# under the same pretense as the SUFFIXES list.
+PREFIXES = [
+    "bo",  # Related through marriage
+    "dis", # Separation of the root object or action
+    "ek",  # Start of the action defined by the root
+    "eks", # Former, cf. English 'ex-'
+    "ge",  # Indicates both sexes of the root
+    "mal", # Creates the opposite meaning of the root
+    "pra", # Distant in time or relationship
+    "re",  # To return or do again, cf. English 're-'
+]
+
 # This is the list of regular expressions we use to match affixes,
 # compiled from the other lists of affixes so that we are not building
-# the same regular expressions over and over.
-AFFIXES = [re.compile("({0}[aeiouŭj]{{0,2}})$".format(suffix), re.IGNORECASE)
-           for suffix in SUFFIXES]
+# the same regular expressions over and over.  See the function
+# compile_affixes(), which populates this list.
+AFFIXES = []
 
 
 
@@ -88,6 +101,19 @@ class InvalidMatchType(Exception):
 
     """
     pass
+
+def compile_affixes():
+    """Populate the global AFFIXES list with compiled regular expressions
+    matching all prefixes and suffixes.
+
+    """
+    global AFFIXES
+    
+    AFFIXES.extend([re.compile("^({0})".format(prefix), re.IGNORECASE)
+                    for prefix in PREFIXES])
+    
+    AFFIXES.extend([re.compile("({0}[aeiouŭj]{{0,2}})$".format(suffix), re.IGNORECASE)
+                    for suffix in SUFFIXES])
 
 def remove_affixes(word):
     """Accepts a word and removes all affixes, returning that version of
@@ -100,9 +126,15 @@ def remove_affixes(word):
         matched_something = False
         
         for affix in AFFIXES:
-            (word, matches) = re.subn(affix, "", word)
+            (new_word, matches) = re.subn(affix, "", word)
+            
             if matches > 0:
                 matched_something = True 
+            
+            if len(new_word) == 0:
+                return word
+            else:
+                word = new_word
                 
         if matched_something == False:
             break
@@ -179,6 +211,7 @@ if __name__ == '__main__':
     words = arguments.word
 
     if arguments.roots_only:
+        compile_affixes()
         words = [remove_affixes(word) for word in words]
 
     for word in words:
