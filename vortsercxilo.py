@@ -141,7 +141,7 @@ def remove_affixes(word):
 
     # When the loop is finished purging all of the affixes the word
     # may still end in a vowel which we need to remove.
-    return re.sub("[aioe]$", "", word)
+    return re.sub("[aioe]j?$", "", word)
 
 def download_dictionary():
     """Download a local copy of the Esperanto-English dictionary."""
