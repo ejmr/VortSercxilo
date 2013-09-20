@@ -27,6 +27,48 @@ DICTIONARY_FILENAME = os.path.dirname(os.path.realpath(sys.argv[0])) + "/ESPDIC.
 # command-line argument.
 VALID_MATCH_TYPES = ("start", "end", "anywhere", "exact")
 
+# This list contains all of the suffixes which the program considers
+# 'official', in the sense that they appear in respected Esperanto
+# dictionaries and grammars.  The suffixes never end with a vowel
+# because we assume any vowel may follow them.  That is not
+# necessarily grammatically correct, but it simplifies the code.
+SUFFIXES = [
+    "ad",  # The action or process of the root
+    "an",  # Member or participant of the root
+    "ant", # Present active participle
+    "ar",  # Collection of the root
+    "at",  # Present passive participle
+    "aĉ",  # Disparaging or detestation of the root
+    "aĵ",  # Manifestation of the root
+    "ebl", # Possibility or suitability of the root
+    "ec",  # Quality or characteristic of the root
+    "eg",  # Augments the root
+    "ej",  # Place characterized by the root
+    "em",  # Inclination towards the root
+    "end", # Requirement characterized by the root
+    "er",  # Smallest tangible unit of the root
+    "est", # Leader or person in charge of the root
+    "et",  # Diminishes the root
+    "id",  # Offspring of the root
+    "ig",  # To cause the state described by the root
+    "il",  # Tool or instrument defined by the root
+    "in",  # Female version of the root
+    "ind", # Worthy of the characteristic of the root
+    "ing", # Holder for objects of the root
+    "int", # Past active participle
+    "ism", # System or doctrine defined by the root
+    "ist", # Person who is a professional concerning the root
+    "it",  # Past passive participle
+    "iĝ",  # To become the state described by the root
+    "nj",  # Friendly, personal female name
+    "ont", # Future active participle
+    "ot",  # Future passive participle
+    "uj",  # Container of objects of the root
+    "ul",  # Person characterized by the root
+    "um",  # Idiomatically creates a new word from the root
+    "ĉj",  # Friendly, personal male name
+]
+
 
 
 class InvalidMatchType(Exception):
@@ -93,6 +135,8 @@ if __name__ == '__main__':
     parser.add_argument("word", nargs="+", help="Esperanto word(s) to search for in the dictionary")
     parser.add_argument("--match", default="start", choices=VALID_MATCH_TYPES,
                         help="search for matches at the beginning, end, or anywhere in words")
+    parser.add_argument("--roots-only", action="store_true",
+                        help="search using only the roots of the words, removing affixes")
     parser.add_argument("--version", action="version", version="%(prog)s {0}".format(__version__))
     arguments = parser.parse_args()
 
