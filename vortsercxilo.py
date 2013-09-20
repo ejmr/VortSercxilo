@@ -69,6 +69,12 @@ SUFFIXES = [
     "ĉj",  # Friendly, personal male name
 ]
 
+# This is the list of regular expressions we use to match affixes,
+# compiled from the other lists of affixes so that we are not building
+# the same regular expressions over and over.
+AFFIXES = [re.compile("({0}[aeiouŭj]{{0,2}})$".format(suffix), re.IGNORECASE)
+           for suffix in SUFFIXES]
+
 
 
 class InvalidMatchType(Exception):
@@ -77,6 +83,28 @@ class InvalidMatchType(Exception):
 
     """
     pass
+
+def remove_affixes(word):
+    """Accepts a word and removes all affixes, returning that version of
+    the word.  The returned word will not end in any grammatically
+    significant vowel under the assumption that we are removing all
+    affixes in order to get the root word.
+
+    """
+    while True:
+        matched_something = False
+        
+        for affix in AFFIXES:
+            (word, matches) = re.subn(affix, "", word)
+            if matches > 0:
+                matched_something = True 
+                
+        if matched_something == False:
+            break
+
+    # When the loop is finished purging all of the affixes the word
+    # may still end in a vowel which we need to remove.
+    return re.sub("[aioe]$", "", word)
 
 def download_dictionary():
     """Download a local copy of the Esperanto-English dictionary."""
@@ -136,13 +164,18 @@ if __name__ == '__main__':
     parser.add_argument("--match", default="start", choices=VALID_MATCH_TYPES,
                         help="search for matches at the beginning, end, or anywhere in words")
     parser.add_argument("--roots-only", action="store_true",
-                        help="search using only the roots of the words, removing affixes")
+                        help="search using only the roots of words")
     parser.add_argument("--version", action="version", version="%(prog)s {0}".format(__version__))
     arguments = parser.parse_args()
 
     if os.path.exists(DICTIONARY_FILENAME) is False:
         download_dictionary()
 
-    for word in arguments.word:
+    words = arguments.word
+
+    if arguments.roots_only:
+        words = [remove_affixes(word) for word in words]
+
+    for word in words:
         for match in collect_matches(word, arguments.match):
             print(match, end="")
