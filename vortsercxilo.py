@@ -37,6 +37,7 @@ SUFFIXES = [
     "an",  # Member or participant of the root
     "ant", # Present active participle
     "ar",  # Collection of the root
+    "as",  # Present tense
     "at",  # Present passive participle
     "aĉ",  # Disparaging or detestation of the root
     "aĵ",  # Manifestation of the root
@@ -56,16 +57,20 @@ SUFFIXES = [
     "ind", # Worthy of the characteristic of the root
     "ing", # Holder for objects of the root
     "int", # Past active participle
+    "is",  # Past tense
     "ism", # System or doctrine defined by the root
     "ist", # Person who is a professional concerning the root
     "it",  # Past passive participle
     "iĝ",  # To become the state described by the root
     "nj",  # Friendly, personal female name
     "ont", # Future active participle
+    "os",  # Future tense
     "ot",  # Future passive participle
+    "u",   # Imperative
     "uj",  # Container of objects of the root
     "ul",  # Person characterized by the root
     "um",  # Idiomatically creates a new word from the root
+    "us",  # Subjunctive
     "ĉj",  # Friendly, personal male name
 ]
 
