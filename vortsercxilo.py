@@ -27,6 +27,72 @@ DICTIONARY_FILENAME = os.path.dirname(os.path.realpath(sys.argv[0])) + "/ESPDIC.
 # command-line argument.
 VALID_MATCH_TYPES = ("start", "end", "anywhere", "exact")
 
+# This list contains all of the suffixes which the program considers
+# 'official', in the sense that they appear in respected Esperanto
+# dictionaries and grammars.  The suffixes never end with a vowel
+# because we assume any vowel may follow them.  That is not
+# necessarily grammatically correct, but it simplifies the code.
+SUFFIXES = [
+    "ad",  # The action or process of the root
+    "an",  # Member or participant of the root
+    "ant", # Present active participle
+    "ar",  # Collection of the root
+    "as",  # Present tense
+    "at",  # Present passive participle
+    "aĉ",  # Disparaging or detestation of the root
+    "aĵ",  # Manifestation of the root
+    "ebl", # Possibility or suitability of the root
+    "ec",  # Quality or characteristic of the root
+    "eg",  # Augments the root
+    "ej",  # Place characterized by the root
+    "em",  # Inclination towards the root
+    "end", # Requirement characterized by the root
+    "er",  # Smallest tangible unit of the root
+    "est", # Leader or person in charge of the root
+    "et",  # Diminishes the root
+    "id",  # Offspring of the root
+    "ig",  # To cause the state described by the root
+    "il",  # Tool or instrument defined by the root
+    "in",  # Female version of the root
+    "ind", # Worthy of the characteristic of the root
+    "ing", # Holder for objects of the root
+    "int", # Past active participle
+    "is",  # Past tense
+    "ism", # System or doctrine defined by the root
+    "ist", # Person who is a professional concerning the root
+    "it",  # Past passive participle
+    "iĝ",  # To become the state described by the root
+    "nj",  # Friendly, personal female name
+    "ont", # Future active participle
+    "os",  # Future tense
+    "ot",  # Future passive participle
+    "u",   # Imperative
+    "uj",  # Container of objects of the root
+    "ul",  # Person characterized by the root
+    "um",  # Idiomatically creates a new word from the root
+    "us",  # Subjunctive
+    "ĉj",  # Friendly, personal male name
+]
+
+# This list contains all of the prefixes that we consider 'official'
+# under the same pretense as the SUFFIXES list.
+PREFIXES = [
+    "bo",  # Related through marriage
+    "dis", # Separation of the root object or action
+    "ek",  # Start of the action defined by the root
+    "eks", # Former, cf. English 'ex-'
+    "ge",  # Indicates both sexes of the root
+    "mal", # Creates the opposite meaning of the root
+    "pra", # Distant in time or relationship
+    "re",  # To return or do again, cf. English 're-'
+]
+
+# This is the list of regular expressions we use to match affixes,
+# compiled from the other lists of affixes so that we are not building
+# the same regular expressions over and over.  See the function
+# compile_affixes(), which populates this list.
+AFFIXES = []
+
 
 
 class InvalidMatchType(Exception):
@@ -35,6 +101,47 @@ class InvalidMatchType(Exception):
 
     """
     pass
+
+def compile_affixes():
+    """Populate the global AFFIXES list with compiled regular expressions
+    matching all prefixes and suffixes.
+
+    """
+    global AFFIXES
+    
+    AFFIXES.extend([re.compile("^({0})".format(prefix), re.IGNORECASE)
+                    for prefix in PREFIXES])
+    
+    AFFIXES.extend([re.compile("({0}[aeiouŭj]{{0,2}})$".format(suffix), re.IGNORECASE)
+                    for suffix in SUFFIXES])
+
+def remove_affixes(word):
+    """Accepts a word and removes all affixes, returning that version of
+    the word.  The returned word will not end in any grammatically
+    significant vowel under the assumption that we are removing all
+    affixes in order to get the root word.
+
+    """
+    while True:
+        matched_something = False
+        
+        for affix in AFFIXES:
+            (new_word, matches) = re.subn(affix, "", word)
+            
+            if matches > 0:
+                matched_something = True 
+            
+            if len(new_word) == 0:
+                return word
+            else:
+                word = new_word
+                
+        if matched_something == False:
+            break
+
+    # When the loop is finished purging all of the affixes the word
+    # may still end in a vowel which we need to remove.
+    return re.sub("[aioe]j?$", "", word)
 
 def download_dictionary():
     """Download a local copy of the Esperanto-English dictionary."""
@@ -93,12 +200,20 @@ if __name__ == '__main__':
     parser.add_argument("word", nargs="+", help="Esperanto word(s) to search for in the dictionary")
     parser.add_argument("--match", default="start", choices=VALID_MATCH_TYPES,
                         help="search for matches at the beginning, end, or anywhere in words")
+    parser.add_argument("--roots-only", action="store_true",
+                        help="search using only the roots of words")
     parser.add_argument("--version", action="version", version="%(prog)s {0}".format(__version__))
     arguments = parser.parse_args()
 
     if os.path.exists(DICTIONARY_FILENAME) is False:
         download_dictionary()
 
-    for word in arguments.word:
+    words = arguments.word
+
+    if arguments.roots_only:
+        compile_affixes()
+        words = [remove_affixes(word) for word in words]
+
+    for word in words:
         for match in collect_matches(word, arguments.match):
             print(match, end="")

@@ -52,6 +52,39 @@ is `--match`, which accepts one of three values:
 4. `exact`: Search for the given input exactly as provided.  This is
    the strictest form of searching.
 
+If you use the option `--roots-only` then VortSerĉilo will remove all
+affixes from each word and search the dictionary for the remaining
+root words.  For example:
+
+```sh
+$ ./vortsercxilo.py --roots-only verkilo
+verkado : work, opus
+verkaĵo : writing
+verkanto : author, creator
+verkanto de retotaglibroj : blogger
+verkaro : works (collected)
+verketo : small work, small creation
+verki : to compose, create, write
+verkilo : authoring tool, word processor
+verkinto : (completed) work; author
+verkista : of an artist
+verkistino : authoress
+verkisto : author, writer, composer
+verkita : authored, written, composed, created
+verko : work (literary or artistic)
+verkoŝtelisto : plagiarist
+```
+
+In other words, the results are the same as if you searched for simply
+‘verk’ instead of ‘verkilo’.  Using the `--roots-only` option will not
+break down compound words such as ‘birdkanto’.  VortSerĉilo only
+attempts to remove affixes listed in authoritative sources, even
+though most affixes are independent words themselves.
+
+
+Graphical User Interface
+------------------------
+
 Version 2.0.0 will have a graphical user interface for users who do
 not want to use the command-line.
 
