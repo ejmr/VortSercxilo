@@ -131,7 +131,7 @@ Copyright Paul Denisowski
 
 [GNU General Public License][gpl]
 
-Copyright 2013 Eric James Michael Ritz
+Copyright 2013–2014 Eric James Michael Ritz
 
 
 Miscellaneous
