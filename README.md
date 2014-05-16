@@ -38,7 +38,7 @@ kanti : to sing
 
 You may provide multiple words to search for.  Using the `--help`
 option will show the available command-line options.  The most useful
-is `--match`, which accepts one of three values:
+is `--match`, which accepts the following values:
 
 1. `start`: Search for the given input only at the start of words and
    phrases.  *This is the default behavior.*
