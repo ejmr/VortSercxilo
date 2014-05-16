@@ -2,8 +2,8 @@
 
 """This script is the implementation of VortSerĉilo.  If there are no
 errors the program exits with the system code zero.  But if something
-goes wrong, e.g. download the dictionary, then Python itself will halt
-due to uncaught exceptions.
+goes wrong, e.g. downloading the dictionary, then Python itself will
+halt due to uncaught exceptions.
 
 """
 
