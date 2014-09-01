@@ -115,6 +115,8 @@ Esperanto Resources
 * [Lernu](http://en.lernu.net/ "Learn Esperanto")
 * [Esperanto.net](http://esperanto.net/ "Esperanto.net")
 * [Esperanto Chat](http://babilejo.org/ "Chat in Esperanto")
+* [Esperanto 101 at Reddit](http://www.reddit.com/r/Esperanto101 "Esperanto 101")
+* [English-Esperanto Courses at Memrise](http://www.memrise.com/courses/english/?q=esperanto "English Esperanto Courses")
 * [Books at Project Gutenberg](http://www.gutenberg.org/wiki/Esperanto_%28Bookshelf%29 "Esperanto Bookshelf") 
 
 
