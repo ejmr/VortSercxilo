@@ -231,8 +231,12 @@ def search(words, match, roots_only):
         words = [remove_affixes(word) for word in words]
 
     for word in words:
-        for entry in collect_entries(word, match):
-            print(entry, end="")
+        entries = collect_entries(word, match)
+        if entries:
+            for entry in entries:
+                print(entry, end="")
+        else:
+            print("No entry found for '{}'".format(word))
 
 
 if __name__ == "__main__":
