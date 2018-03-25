@@ -243,8 +243,10 @@ def search(words, match, roots_only, interactive):
         words = [remove_affixes(word) for word in words]
 
     if interactive:
+        click.echo("NOTE: Type in 'quit' to exit the program")
         while True:
             query = click.prompt("Please enter Esperanto word", type=str)
+            if query == "quit": break
             show_entries(query, match)
     else:
         for word in words:
