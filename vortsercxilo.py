@@ -152,7 +152,7 @@ def remove_affixes(word):
 
 def download_dictionary():
     """Download a local copy of the Esperanto-English dictionary."""
-    print("Downloading the ESPDIC Esperanto-English dictionary...")
+    click.echo("Downloading the ESPDIC Esperanto-English dictionary...")
     with urllib.request.urlopen(DICTIONARY_URI) as remote:
         with open(DICTIONARY_FILENAME, mode="w", encoding="utf-8") as local:
             local.write(remote.read().decode("utf-8"))
@@ -204,16 +204,28 @@ def collect_entries(word, match):
         return entries
 
 
-@click.command()
+def show_entries(query, match):
+    """Shows all definitions for the given QUERY."""
+    entries = collect_entries(query, match)
+    if entries:
+        for entry in entries:
+            click.echo(entry, nl=False)
+    else:
+        click.echo("No entry found for '{}'".format(word))
+
+
+@click.command(name="VortSerĉilo")
 @click.argument("words", nargs=-1)
 @click.option("-m", "--match", type=click.Choice(VALID_MATCH_TYPES),
               default="start",
               help="Search entries at their start, end, anywhere, or exactly")
 @click.option("-r", "--roots-only", is_flag=True,
               help="Remove all affixes and search only word roots")
+@click.option("-i", "--interactive", is_flag=True,
+              help="Interactively search the dictionary")
 @click.version_option(__version__, prog_name="VortSerĉilo",
-              message="%(prog)s %(version)s")
-def search(words, match, roots_only):
+                      message="%(prog)s %(version)s")
+def search(words, match, roots_only, interactive):
     """Search an Esperanto-English dictionary for given words.
 
     The first time you run VortSerĉilo it will download the dictionary
@@ -230,13 +242,13 @@ def search(words, match, roots_only):
         compile_affixes()
         words = [remove_affixes(word) for word in words]
 
-    for word in words:
-        entries = collect_entries(word, match)
-        if entries:
-            for entry in entries:
-                print(entry, end="")
-        else:
-            print("No entry found for '{}'".format(word))
+    if interactive:
+        while True:
+            query = click.prompt("Please enter Esperanto word", type=str)
+            show_entries(query, match)
+    else:
+        for word in words:
+            show_entries(word, match)
 
 
 if __name__ == "__main__":
