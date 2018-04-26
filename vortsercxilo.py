@@ -211,7 +211,7 @@ def show_entries(query, match):
         for entry in entries:
             click.echo(entry, nl=False)
     else:
-        click.echo("No entry found for '{}'".format(word))
+        click.echo("No entries found for '{}'".format(query))
 
 
 @click.command(name="VortSerĉilo")
